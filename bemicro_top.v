@@ -1,4 +1,3 @@
-
 module bemicro_top(
    // General
    input    wire  CLK_FPGA_50M,
@@ -144,6 +143,7 @@ module bemicro_top(
 
    // NOTE: Each button is asynchronous to all others.  THIS DOES NOT WORK to
    //   synchronize an input bus to a clock domain.
+   // take async into sync into a clock domain.
    reg [1:0]    pb_s0, pb_s1, pb_in;
    always @(posedge clk)
      begin
@@ -151,7 +151,9 @@ module bemicro_top(
      pb_s1 <= pb_s0;
      pb_in <= pb_s1;
      end
-   
+   // <= operator will take pb and assign it to pb_s0 at the end of the time step
+   // a <= b
+   // b <= a
 // --------------------------------------------------------------------------------
    
    wire [7:0]   led0, led1, led2, led3;
